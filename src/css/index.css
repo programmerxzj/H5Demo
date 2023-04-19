@@ -1,0 +1,68 @@
+#androidImgBox {
+    display: none;
+    width: 160px;
+    height: 160px;
+}
+
+#iOSImgBox {
+    display: none;
+    width: 160px;
+    height: 160px;
+}
+
+#mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 9999999;
+    color: #fff;
+}
+
+.maskBg {
+    position: absolute;
+    width: 120px;
+    height: auto;
+    right: 15%;
+    top: 4%;
+}
+
+.tips {
+    /* width: 100%; */
+    position: absolute;
+    top: 22%;
+    left: 46%;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.5;
+    z-index: 999999;
+    text-align: center;
+}
+
+.isXinChuang {
+    display: none;
+}
+
+.download_xin1 {
+    background-image: url('../images/icon-1.png');
+    background-repeat: no-repeat;
+}
+.download_xin2 {
+    background-image: url('../images/icon-2.png');
+    background-repeat: no-repeat;
+}
+.download_xin3 {
+    background-image: url('../images/icon-4.png');
+    background-repeat: no-repeat;
+}
+.download_xin4 {
+    background-image: url('../images/icon-3.png');
+    background-repeat: no-repeat;
+}
+.download_xin5 {
+    background-image: url('../images/icon__mac.png');
+    background-repeat: no-repeat;
+}

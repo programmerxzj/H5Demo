@@ -1,0 +1,111 @@
+cache:
+  # key: eop
+  # key: fed-builder-s1
+  paths:
+    - node_modules/
+
+before_script:
+  - export PATH=$PATH:/usr/local/bin
+  - export PATH=$PATH:/usr/bin
+  - whoami
+  - pwd
+  - node -v
+
+stages:
+  - install
+  - deploy_testqa
+  - deploy_txdev
+  - deploy_pre
+  - deploy_prd
+
+
+install:
+  stage: install
+  when: manual
+  cache:
+    # key: eop
+    # key: fed-builder-s1
+    paths:
+      - node_modules/
+    policy: push
+  tags:
+    - fed-builder-s1
+  script:
+    - yarn install --registry=http://10.80.84.176:4873/
+  environment:
+    name: oms_install_dev/$CI_COMMIT_REF_NAME
+
+# 开发环境testqa打包 发布
+deploy_testqa:
+  stage: deploy_testqa
+  when: manual
+  cache:
+    # key: eop
+    # key: fed-builder-s1
+    paths:
+      - node_modules/
+    policy: pull
+  tags:
+    - fed-builder-s1
+  script:
+    - yarn build
+    - ./node_modules/.bin/ali-oss-folder testqa --accessKeyId=$z3prdAccessKeyId --accessKeySecret=$z3prdAccessKeySecret
+  environment:
+    name: deploy_oms_testqa/$CI_COMMIT_REF_NAME
+
+# 开发环境 腾讯 txdev打包 发布
+deploy_txdev:
+  stage: deploy_txdev
+  when: manual
+  cache:
+    # key: eop
+    # key: fed-builder-s1
+    paths:
+      - node_modules/
+    policy: pull
+  tags:
+    - fed-builder-s1
+  script:
+    - yarn build
+    - ./node_modules/.bin/ali-oss-folder txdev --accessKeyId="$k8sAccessKeyId" --accessKeySecret="$k8sAccessKeySecret"
+  environment:
+    name: deploy_oms_txdev/$CI_COMMIT_REF_NAME
+
+# 开发环境pre打包 发布
+deploy_pre:
+  stage: deploy_pre
+  when: manual
+  cache:
+    # key: eop
+    # key: fed-builder-s1
+    paths:
+      - node_modules/
+    policy: pull
+  tags:
+    - fed-builder-s1
+  script:
+    - yarn build
+    - ./node_modules/.bin/ali-oss-folder pre --accessKeyId=$preAccessKeyId --accessKeySecret=$preAccessKeySecret 
+  environment:
+    name: deploy_oms_pre/$CI_COMMIT_REF_NAME
+
+# 开发环境prd打包 发布
+deploy_prd:
+  stage: deploy_prd
+  when: manual
+  cache:
+    # key: eop
+    # key: fed-builder-s1
+    paths:
+      - node_modules/
+    policy: pull
+  tags:
+    - fed-builder-s1
+  script:
+    - yarn build
+    - ./node_modules/.bin/ali-oss-folder prd --accessKeyId="$prdAccessKeyId" --accessKeySecret="$prdAccessKeySecret"
+  environment:
+    name: deploy_oms_prd/$CI_COMMIT_REF_NAME
+
+
+

@@ -1,0 +1,26 @@
+ossClientConf:
+  region: "oss-cn-beijing"
+  accessKeyId: "${accessKeyId}"
+  accessKeySecret: "${accessKeySecret}"
+
+ossBucketConf:
+
+  txdev:
+    bucket: "ainemok8stxdevcn"
+    buildPath: "/dist"
+    distPath: "h5/oms-support"
+
+  testqa:
+    bucket: "z3-cdn"
+    buildPath: "/dist"
+    distPath: "h5/oms-support"
+  
+  pre:
+    bucket: "ainemoprecdn"
+    buildPath: "/dist"
+    distPath: "h5/oms-support"
+
+  prd:
+    bucket: "ainemocdn"
+    buildPath: "/dist"
+    distPath: "h5/oms-support"
